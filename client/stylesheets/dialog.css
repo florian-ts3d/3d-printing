@@ -1,0 +1,54 @@
+.hoops-ui-window {
+    z-index: 10000;
+    position: absolute;
+    background: rgba(100,100,100,0.8);
+    border: 1px solid black;
+    border-radius: 6px;
+    overflow: hidden;
+    border-style: solid;
+    background: rgba(0,0,0,0);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    margin: auto;
+    width: 250px;
+	visibility: hidden;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.hoops-ui-window-header {
+    font-family: arial;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 8px 0px 5px 5px;
+    background: white;
+    height: 28px;
+    cursor: default;
+    border-bottom: 1px solid gray;
+}
+
+.hoops-ui-window-body {
+    padding-top: 5px;
+    font-family: Verdana;
+    border-bottom: 1px solid gray;
+    background-color: white;
+    padding: 7px 11px 5px 11px;
+    overflow: hidden;
+}
+
+.hoops-ui-window-footer {
+    padding: 5px 5px 5px 5px;
+    background-color: white;
+    height: 32px;
+}
+
+.hoops-ui-window-footer .hoops-ui-footer-buttons {
+	position: relative;
+	right: 11px;
+	float: right;
+}

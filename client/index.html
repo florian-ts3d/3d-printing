@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>
+		3D Printing Demo
+	</title>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="chrome=1;IE=edge">
+	<meta name="viewport" content="user-scalable=no">
+
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" media="(min-width: 1366px)" href="./stylesheets/max-1366px.css">
+	<link rel="stylesheet" media="(max-width: 1366px)" href="./stylesheets/min-1366px.css">
+	<link rel="stylesheet" href="./stylesheets/dialog.css">
+
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/techsoft3d/hoops-web-viewer@2020.0.0/hoops_web_viewer.js"
+		id="hwvScript"></script>
+	<script type="module" src="./javascripts/polygonica.js?v=1374a67"></script>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+	<div class="l-wrap">
+		<table class="header">
+			<tr>
+				<td><a href="http://www.techsoft3d.com" target="_blank"><img src="./images/TechSoft_3D_Logo_lg.png"
+							alt="Tech Soft 3D" class="logo"></a></td>
+				<td class="header-text"><a href="http://pages.techsoft3d.com/evaluate" target="_blank"
+						style="text-decoration:none; color: #0A95D5">Evaluate</a></td>
+				<td class="header-text"><a href="http://techsoft3d.com/industries/additive-manufacturing/"
+						target="_blank" style="text-decoration:none; color: #0A95D5">Technology</a></td>
+				<td class="header-text-end"><a href="http://www.techsoft3d.com" target="_blank"
+						style="text-decoration:none; color: #0A95D5">Company</a></td>
+			</tr>
+		</table>
+
+		<hr>
+
+		<h2 id="file_name">Drag and drop file to upload:</h2>
+		<div class="l-communicator">
+			<div class="grid-item l-container">
+				<div style="background-color: #E5E5E5" id="container">
+					<div id="loading"></div>
+					<div id="hollow-dialog" class="hoops-ui-window">
+						<div class="hoops-ui-window-header">Hollow Out</div>
+						<div class="hoops-ui-window-body">
+							<table style="width: 100%">
+								<tr>
+									<td style="width: 50%">Offset:</td>
+									<td style="width: 50%"><input type="text" id="offset" style="text-align: right"
+											value="1" /></td>
+								</tr>
+							</table>
+						</div>
+						<div class="hoops-ui-window-footer">
+							<div class="hoops-ui-footer-buttons">
+								<button id="hollow-settings-ok-button">Ok</button>
+								<button id="hollow-settings-cancel-button">Cancel</button>
+							</div>
+						</div>
+					</div>
+					<div id="simplify-dialog" class="hoops-ui-window">
+						<div class="hoops-ui-window-header">Simplify</div>
+						<div class="hoops-ui-window-body">
+							<table style="width: 100%">
+								<tr>
+									<td style="width: 50%">Percentage:</td>
+									<td style="width: 50%"><input type="text" id="simplify_percent"
+											style="text-align: right" value="50" /></td>
+								</tr>
+							</table>
+						</div>
+						<div class="hoops-ui-window-footer">
+							<div class="hoops-ui-footer-buttons">
+								<button id="simplify-settings-ok-button">Ok</button>
+								<button id="simplify-settings-cancel-button">Cancel</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<table style="width: 100%">
+					<tr>
+						<td style="width: 33%;"><button class="pg-button" id="heal" disabled="true">Heal</button></td>
+						<td style="width: 34%;"><button class="pg-button" id="simplify"
+								disabled="true">Simplify</button></td>
+						<td style="width: 33%;"><button class="pg-button" id="hollow" disabled="true">Hollow</button>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div class="grid-item l-details">
+				<table style="width: 100%">
+					<th>Model Status</th>
+					<tr>
+						<td style="width: 50%">Closed</td>
+						<td id="closed"></td>
+					</tr>
+					<td>Manifold</td>
+					<td id="manifold"></td>
+					<tr>
+						<td>No Intersections</td>
+						<td id="no_intersections"></td>
+					</tr>
+					<td>Correct Orientation</td>
+					<td id="correct_orientation"></td>
+				</table>
+				<p style="line-height: 80%">
+					<table style="width: 100%">
+						<tr>
+							<td style="width: 50%">Points</td>
+							<td id="point_count"></td>
+						</tr>
+						<tr>
+							<td>Faces</td>
+							<td id="face_count"></td>
+						</tr>
+						<tr>
+							<td>Dimensions</td>
+							<td id="dimensions"></td>
+						</tr>
+						<tr>
+							<td>Volume</td>
+							<td id="volume"></td>
+						</tr>
+						<tr>
+							<td>Units</td>
+							<td style="width: 50%"><select id="units">
+									<option value="1">mm</option>
+									<option value="10">cm</option>
+									<option value="25.4">in</option>
+								</select></td>
+						</tr>
+					</table>
+					<hr>
+					<table style="width: 100%">
+						<th>3D Print Settings</th>
+						<tr>
+							<td style="width: 50%">Material</td>
+							<td style="width: 50%"><select id="material">
+									<option value="1">Plastic</option>
+									<option value="1.73">Resin (Polyjet)</option>
+									<option value="4.51">Resin (CLIP)</option>
+									<option value="1.09">Aluminide</option>
+									<option value="2.19">Carbonmide</option>
+									<option value="1.09">Glss-Filled Nylon</option>
+									<option value=".666">Multicolor</option>
+									<option value="9.33">Metal</option>
+								</select></td>
+						</tr>
+						<tr>
+							<td>Color</td>
+							<td><select name="color" id="color" class="select-color">
+									<option style='color:gray;'>&#xf04d; &nbsp; Gray</option>
+									<option style='color:red;'>&#xf04d; &nbsp; Red</option>
+									<option style='color:green;'>&#xf04d; &nbsp; Green</option>
+									<option style='color:blue;'>&#xf04d; &nbsp; Blue</option>
+									<option style='color:yellow;'>&#xf04d; &nbsp; Yellow</option>
+									<option style='color:brown;'>&#xf04d; &nbsp; Brown</option>
+									<option style='color:orange;'>&#xf04d; &nbsp; Orange</option>
+								</select></td>
+						</tr>
+						<tr>
+							<td>Finish</td>
+							<td><select id="finish">
+									<option value="1">Raw</option>
+									<option value="1.12">Polished</option>
+								</select></td>
+						</tr>
+						<tr>
+							<td>Layer Thickness</td>
+							<td><select name="layer_thickness">
+									<option>Standard (100-150um)</option>
+									<option>Fine (60um)</option>
+								</select></td>
+						</tr>
+						<tr>
+							<td>Scale %</td>
+							<td style="font-size: 8pt"><input type="number" id="scale" name="scale" value="100" /></td>
+						</tr>
+					</table>
+					<hr>
+					<div>
+						<table style="width: 100%">
+							<tr>
+								<td style="width: 50%">Unit Price:</td>
+								<td id="unit_price" style="width: 50%"></td>
+							</tr>
+							<tr>
+								<td style="width: 50%">Quantity:</td>
+								<td style="width: 50%"><input type="number" name="quantity" id="quantity" value="1"
+										style="width: 150px;" /></td>
+							</tr>
+							<tr>
+								<td style="width: 50%">Total:</td>
+								<td id="total_price" style="width: 50%"></td>
+							</tr>
+						</table>
+					</div>
+					<hr>
+					<div>
+						<button style="height:40px; width: 100%; border: none; color:white; background-color: #0A95D5;"
+							id="checkout-open-button">Review
+							and Checkout</button>
+					</div>
+			</div>
+
+			<div id="checkout-dialog" class="hoops-ui-window" style="display: hidden;">
+				<div class="hoops-ui-window-header">Review and Checkout</div>
+				<div class="hoops-ui-window-body">
+					<span>This is a demo</span>
+				</div>
+
+				<div class="hoops-ui-window-footer">
+					<div class="hoops-ui-footer-buttons">
+						<button id="checkout-close-button">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

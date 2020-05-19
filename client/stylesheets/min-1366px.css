@@ -1,0 +1,156 @@
+@mixin clearfix {
+  &:after {
+    display: table;
+    clear: both;
+    content:'';
+  }
+}
+
+      *,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+
+.l-wrap {
+  max-width: 1140px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.header {
+	width: 1140px;
+}
+
+.logo {
+	height: 40px;
+}
+
+.header-text {
+	font-size: 11pt;
+	color: #0A95D5;
+	width: 130px;
+}
+
+.header-text-end {
+	font-size: 11pt;
+	color: #0A95D5;
+	width: 80px;
+}
+
+.l-communicator .l-container {
+  width: 75%;
+  padding-left: 10px;
+  padding-right: 10px;
+  float: left;
+  overflow: auto;
+}
+
+.l-communicator .l-details {
+  width: 25%;
+  padding-right: 10px;
+  padding-left: 10px;
+  float: left;
+}
+
+
+/* other styles */
+
+#container {                
+	height:480px;   
+	width: 100%;
+	float: left;
+	position: relative;
+	border: thin solid #cdcdc1;
+}
+
+#loading {
+	position: absolute; 
+	width: 100%; 
+	height: 100%; 
+	background: 
+	url('./images/spinner.gif') 
+	no-repeat left bottom; 
+	visibility: hidden;
+	transform: translate(5px, -5px);
+	z-index : 1
+	text-align: center;
+	vertical-align: middle;
+}
+
+h2 {
+	font-family: Lato;
+	font-size: 10pt;
+	color: #575656;
+}	
+
+body {
+	font-family: Lato;
+	font-size: 12pt;
+}		
+			
+
+
+/* Right Panel styles */
+hr {
+	border: thin solid #cdcdc1;
+}
+
+table {
+	margin-left: 0px;
+	margin-right: 0px;
+	border-collapse: collapse;
+	font-family: Lato;
+	font-size: 9pt;
+	color: #575656;
+}
+tr {
+	margin-left: 0px;
+	margin-right: 0px;
+}
+td {
+	margin-left: 0px;
+	margin-right: 0px;
+	padding: 0;
+}
+th {
+	margin-left: 0px;
+	margin-right: 0px;
+	padding: 0;
+	text-align: left;
+}			
+
+.pg-button {
+	width: 100%;
+	background-color: white;
+	border-bottom: thick solid #1299D6;
+	border-left: none;
+	border-right: none;
+	border-top: none;
+	font-family: Lato;
+	font-size : 13px;
+	margin: 0;
+	padding: 0;
+	height: 30px;
+}
+
+select {
+	border: none;
+	width: 100%;
+	text-align: right;
+	font-family: Lato;
+	font-size: 8pt;
+	color: #575656;
+}
+
+input {
+	border: none;
+	font-family: Lato;
+	font-size: 8pt
+}
+
+.select-color {
+	font-family:Arial, FontAwesome;
+	height: 10pt;
+}
