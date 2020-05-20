@@ -8,16 +8,18 @@ let zDim = 0.0;
 let hollowed = false;
 let cutPlaneVisible;
 
-let ServerURL = "https://localhost/PgServer";
+let ServerURL = "https://cloud.techsoft3d.com/PgServer";
 
 window.onload = function () {
 	if (!window.document.URL.includes("localhost")) {
-		len = window.document.URL.indexOf("demos") - 1;
-		ServerURL = window.document.URL.substring(0, len) + "/PgServer";
+		//len = window.document.URL.indexOf("demos") - 1;
+		//ServerURL = window.document.URL.substring(0, len) + "/PgServer";
+		ServerURL = "localhost:8888";
+
 	}
 
 	const pgReq = new XMLHttpRequest();
-	pgReq.open("POST", "/api/run_pgserver");
+	pgReq.open("POST", ServerURL + "/api/run_pgserver");
 	pgReq.onload = () => {
 		console.log('PG Server is live');
 	}
@@ -46,7 +48,7 @@ window.onload = function () {
 		oReq.send(null);
 
 		$.ajax({
-			url: '/api/close_pgserver',
+			url: ServerURL + '/api/close_pgserver',
 			type: 'POST',
 			dataType: 'json',
 			data: {
