@@ -11,7 +11,7 @@ let cutPlaneVisible;
 let ServerURL = "https://cloud.techsoft3d.com/PgServer";
 
 window.onload = function () {
-	if (!window.document.URL.includes("localhost")) {
+	if (window.document.URL.includes("localhost")) {
 		//len = window.document.URL.indexOf("demos") - 1;
 		//ServerURL = window.document.URL.substring(0, len) + "/PgServer";
 		ServerURL = "localhost:8888";
