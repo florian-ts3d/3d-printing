@@ -723,7 +723,7 @@ int answer_to_connection(void *cls, struct MHD_Connection *connection,
 			char path[1024];
 			sprintf(path, "./data/%s", file_name);
 			con_info->pFile = fopen(path, "wb");
-			con_info->file_name = (char*)malloc(sizeof(char) * strlen(file_name));
+			con_info->file_name = (char*)malloc(sizeof(char) * (strlen(path) +1));
 			strcpy(con_info->file_name, path);
 			*con_cls = (void*)con_info;
 			
